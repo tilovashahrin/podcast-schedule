@@ -13,6 +13,7 @@ export function PodcastCards() {
   const accessToken = ref("");
   const colorMap = ref<{ [key: string]: string }>({});
   const selectedPodcasts = ref<string[]>([]);
+  const selectedPodcastDetails = ref<{ id: string; name: string }[]>([]);
   const episodeSchedules = ref<{ id: string; date: string; title: string, description: string }[]>([]);
   let lastAssignedIndex = 0;
 
@@ -100,13 +101,19 @@ export function PodcastCards() {
   function toggleSelection(id: string) {
     if (selectedPodcasts.value.includes(id)) {
       selectedPodcasts.value = selectedPodcasts.value.filter(podcastId => podcastId !== id);
+      selectedPodcastDetails.value = selectedPodcastDetails.value.filter(p => p.id !== id);
       episodeSchedules.value = episodeSchedules.value.filter(schedule => schedule.id !== id);
-      delete colorMap.value[id];
     } else {
       if (selectedPodcasts.value.length == 5) {
         alert("You can only select up to 5 podcasts.");
         return;
       }
+
+      const podcast = podcasts.value.find((p) => p.id === id);
+      if (podcast) {
+        selectedPodcastDetails.value.push({ id: podcast.id, name: podcast.name });
+      }
+
       assignColor(id);
       selectedPodcasts.value.push(id);
       getEpisodes(id);
@@ -116,13 +123,12 @@ export function PodcastCards() {
   //creating a podcast episode event
   function createCalendarEvent() {
     return episodeSchedules.value.map((schedule) => {
-      const podcast = podcasts.value.find(p => p.id === schedule.id);
-      const podcastName = podcast && podcast.name;
+      const podcastDetails = selectedPodcastDetails.value.find((p) => p.id === schedule.id);
 
       return {
         start: new Date(schedule.date),
         end: new Date(schedule.date),
-        title: `${podcastName} - ${schedule.title}`,
+        title: `${podcastDetails?.name} - ${schedule.title}`,
         description: schedule.description || "No description available.",
         class: 'podcast-event',
         backgroundColor: colorMap.value[schedule.id] || "#000000",
