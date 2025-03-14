@@ -8,7 +8,7 @@
       </div>
       <div class="podcast-grid" v-if="podcasts.length">
         <div class="podcast-card" v-for="podcast in podcasts" :key="podcast.id" tabindex="0"
-          :class="{ 'selected': selectedPodcasts.includes(String(podcast.id)) }"
+          :class="{ 'selected': selectedPodcasts.some(p => p.id === podcast.id) }"
           @keydown.enter="toggleSelection(podcast.id)" @click="toggleSelection(podcast.id)">
           <img :src=podcast.images?.[0]?.url alt="Podcast Image" />
           <div class="podcast-card-content">

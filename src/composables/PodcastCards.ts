@@ -12,8 +12,7 @@ export function PodcastCards() {
   const podcasts = ref<Podcast[]>([]);
   const accessToken = ref("");
   const colorMap = ref<{ [key: string]: string }>({});
-  const selectedPodcasts = ref<string[]>([]);
-  const selectedPodcastDetails = ref<{ id: string; name: string }[]>([]);
+  const selectedPodcasts = ref<{ id: string; name: string }[]>([]);
   const episodeSchedules = ref<{ id: string; date: string; title: string, description: string }[]>([]);
   let lastAssignedIndex = 0;
 
@@ -99,23 +98,22 @@ export function PodcastCards() {
 
   //when a podcast is selected
   function toggleSelection(id: string) {
-    if (selectedPodcasts.value.includes(id)) {
-      selectedPodcasts.value = selectedPodcasts.value.filter(podcastId => podcastId !== id);
-      selectedPodcastDetails.value = selectedPodcastDetails.value.filter(p => p.id !== id);
+    const podcast = podcasts.value.find((p) => p.id === id);
+    if (!podcast) return;
+  
+    const isSelected = selectedPodcasts.value.some(p => p.id === id);
+  
+    if (isSelected) {
+      selectedPodcasts.value = selectedPodcasts.value.filter(p => p.id !== id);
       episodeSchedules.value = episodeSchedules.value.filter(schedule => schedule.id !== id);
     } else {
       if (selectedPodcasts.value.length == 5) {
         alert("You can only select up to 5 podcasts.");
         return;
       }
-
-      const podcast = podcasts.value.find((p) => p.id === id);
-      if (podcast) {
-        selectedPodcastDetails.value.push({ id: podcast.id, name: podcast.name });
-      }
-
+  
+      selectedPodcasts.value.push(podcast);
       assignColor(id);
-      selectedPodcasts.value.push(id);
       getEpisodes(id);
     }
   }
@@ -123,7 +121,7 @@ export function PodcastCards() {
   //creating a podcast episode event
   function createCalendarEvent() {
     return episodeSchedules.value.map((schedule) => {
-      const podcastDetails = selectedPodcastDetails.value.find((p) => p.id === schedule.id);
+      const podcastDetails = selectedPodcasts.value.find((p) => p.id === schedule.id);
 
       return {
         start: new Date(schedule.date),
