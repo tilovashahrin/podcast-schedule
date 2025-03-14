@@ -1,5 +1,54 @@
-# Vue 3 + TypeScript + Vite
+# Podcast Calendar
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Overview
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+Podcast Calendar is a web application built with Vue.js and TypeScript that allows users to search for podcasts available on Spotify, select up to five podcasts, and view their episodes in a calendar format. The calendar supports both monthly and weekly views, with episodes color-coded by podcast for better visualization. Users can navigate the application using keyboard shortcuts, and clicking on an episode opens a pop-up modal with more details.
+
+## Keys Include:
+1. Enter to select/deselect
+2. Enter to open modal
+3. Esc to close modal
+4. Tab to move across items in web app
+   
+## Design
+Left Panel:
+Search Bar and Podcast cards to select or deselect.
+
+Right Panel:
+Calendar with podcast episodes, can click to overview desription of episode.
+
+<img width="767" alt="Screenshot 2025-03-10 at 2 21 48 PM" src="https://github.com/user-attachments/assets/3a79a2ec-0d4e-4561-a181-7d54b6e1857c" />
+
+
+### Installation
+
+Prerequisites:
+- Node.js (>=16.0.0)
+- npm or yarn
+
+Setup & Run:
+Clone the repository:
+
+`git clone https://github.com/yourusername/podcast-calendar.git`
+`cd podcast-calendar`
+
+Install dependencies:
+`npm install`
+or
+`yarn install`
+
+Set up environment variables:
+Create a .env file in the root directory.
+Add the following environment variables:
+
+`VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id`
+`VITE_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret`
+
+Start the development server:
+
+`npm run dev`
+or
+`yarn dev`
+
+Open the app in your browser: http://localhost:5173
+
