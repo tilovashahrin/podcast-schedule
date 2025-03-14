@@ -1,0 +1,167 @@
+/* src/style.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel {
+  width: 300px;
+  height: auto; 
+  min-height: 100vh;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  border-radius: 4px;
+}
+
+.left-panel h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.search-bar {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.podcast-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.podcast-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.podcast-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.podcast-card.selected {
+  border: 2px solid blue;
+  background-color: lightblue;
+}
+
+.podcast-card:focus {
+  outline: none;
+  box-shadow: 0 0 5px blue;
+}
+
+.podcast-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.podcast-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.podcast-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 4px;
+}
+
+.podcast-card-publisher {
+  font-size: 14px;
+  color: #3F3D56;
+}
+
+.calendar-event {
+  display: block;
+  background-color: green;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* Right Panel */
+.right-panel {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-panel {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .right-panel {
+    width: 100%;
+  }
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Modal content */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90vw;
+  max-height: 80vh;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
