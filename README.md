@@ -26,29 +26,29 @@ Calendar with podcast episodes, can click to overview desription of episode.
 
 ### Installation
 
-Prerequisites:
+1. Prerequisites:
 - Node.js (>=16.0.0)
 - npm or yarn
 
-Setup & Run:
+2. Setup & Run:
 Clone the repository:
 
 `git clone https://github.com/yourusername/podcast-calendar.git`
 `cd podcast-calendar`
 
-Install dependencies:
+3. Install dependencies:
 `npm install`
 or
 `yarn install`
 
-Set up environment variables:
+4. Set up environment variables:
 Create a .env file in the root directory.
 Add the following environment variables:
 
 `VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id`
 `VITE_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret`
 
-Start the development server:
+5. Start the development server:
 
 `npm run dev`
 or
