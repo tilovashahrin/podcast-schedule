@@ -21,6 +21,7 @@ export function useCalendar(events: any) {
     eventClick: handleEventClick,
     editable: false,
     selectable: true,
+    allDaySlot: false,
   });
 
   function handleEventClick(info: any) {
