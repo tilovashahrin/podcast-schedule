@@ -8,10 +8,11 @@ https://podcast-schedules.netlify.app/
 Podcast Calendar is a web application built with Vue.js and TypeScript that allows users to search for podcasts available on Spotify, select up to five podcasts, and view their episodes in a calendar format. The calendar supports both monthly and weekly views, with episodes color-coded by podcast for better visualization. Users can navigate the application using keyboard shortcuts, and clicking on an episode opens a pop-up modal with more details.
 
 ## Keys Include:
-1. Enter to select/deselect
-2. Enter to open modal
-3. Esc to close modal
-4. Tab to move across items in web app
+1. Tab to move across items
+2. Shift + Tab to move back
+3. Enter to select/deselect podcasts
+4. Enter to open modal
+5. Esc to close modal
    
 ## Design
 Left Panel:
