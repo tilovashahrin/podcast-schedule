@@ -19,7 +19,7 @@
     </div>
 
     <div class="right-panel" ref="calendarRef" tabindex="0">
-      <FullCalendar ref="calendar" :options="calendarOptions" />
+      <FullCalendar :options="calendarOptions" />
     </div>
       <div v-if="modalVisible" class="modal-overlay" @click="closeModal" tabindex="0">
         <div class="modal-content" @click.stop >

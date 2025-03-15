@@ -1,14 +1,13 @@
 import { ref } from 'vue';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
 
 export function useCalendar(events: any) {
   const modalVisible = ref(false);
   const selectedEvent = ref<{ title: string; description: string }>({ title: '', description: '' });
 
   const calendarOptions = ref({
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    plugins: [dayGridPlugin, timeGridPlugin],
     initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",

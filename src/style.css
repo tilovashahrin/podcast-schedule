@@ -7,12 +7,13 @@ body {
 
 .app-container {
   display: flex;
+  align-items: center;
   height: 100vh;
 }
 
 .left-panel {
   width: 350px;
-  min-height: 50vh;
+  height: 80vh;
   overflow-y: auto;
   background-color: #fff;
   padding: 20px;
@@ -108,7 +109,7 @@ body {
   flex: 1;
   padding: 20px;
   background-color: #fff;
-  min-width: 400px;
+  min-width: 500px;
   overflow-x: auto;
 }
 
@@ -130,9 +131,8 @@ body {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 400px;
-  max-width: 90vw;
-  max-height: 80vh;
+  width: 30vw;
+  max-height: 50vh;
   text-align: left;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -155,20 +155,37 @@ body {
   }
 
   .right-panel {
-    width: 80%;
+    width: 90%;
     min-width: auto;
     overflow-x: auto;
     padding: 15px;
+  }
+
+  .fc .fc-button {
+    font-size: 11px;
   }
 }
 
 @media (max-width: 768px) {
   .left-panel {
     padding: 10px;
+    height: 80vw;
+  }
+
+  .right-panel {
+    min-width: 500px;
+    height: auto;
+    min-width: auto;
+    overflow-x: auto;
+    padding: 15px;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 18px;
   }
 
   .search-bar {
-    width: 100%;
+    width: 80%;
     font-size: 14px;
     padding: 8px;
   }
