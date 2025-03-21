@@ -90,7 +90,7 @@ export function PodcastCards() {
   function assignColor(id: string) {
     if (lastAssignedIndex >= 5) lastAssignedIndex = 0;
     if (!colorMap.value[id]) {
-      const colors = ["#8ecae6", "#8338ec", "#ef233c", "#84a98c", "#9e2a2b"];
+      const colors = ["#0077B6", "#5A189A", "#9D0208", "#2A6F64", "#9C4408"];
       colorMap.value[id] = colors[lastAssignedIndex];
       lastAssignedIndex += 1;
     }
