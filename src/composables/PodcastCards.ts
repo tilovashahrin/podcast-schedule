@@ -100,10 +100,11 @@ export function PodcastCards() {
   function toggleSelection(id: string) {
     const podcast = podcasts.value.find((p) => p.id === id);
     if (!podcast) return;
-  
+    
+    //checks if its already selected in the existing selectedPodcasts array
     const isSelected = selectedPodcasts.value.some(p => p.id === id);
-  
     if (isSelected) {
+      //removes from list of selectedPodcasts & episodeSchedules (deselects)
       selectedPodcasts.value = selectedPodcasts.value.filter(p => p.id !== id);
       episodeSchedules.value = episodeSchedules.value.filter(schedule => schedule.id !== id);
     } else {
@@ -119,10 +120,10 @@ export function PodcastCards() {
   }
 
   //creating a podcast episode event
+  //calendarEvents (computed property) updates reactively when episodeSchedules changes
   function createCalendarEvent() {
     return episodeSchedules.value.map((schedule) => {
       const podcastDetails = selectedPodcasts.value.find((p) => p.id === schedule.id);
-
       return {
         start: new Date(schedule.date),
         end: new Date(schedule.date),
@@ -135,10 +136,12 @@ export function PodcastCards() {
     });
   }
 
-  //update query onchange
-  function updateSearch(event: Event) {
-    const target = event.target as HTMLInputElement;
-    searchQuery.value = target.value;
+  //This function takes an Event as a parameter (which occurs when a user types in an input field)
+  function updateSearch(event: Event) { //Event doesn't specify
+    // Typecasting: Treats event.target as an input element
+    const target = event.target as HTMLInputElement; 
+    // Assigns the input value to a reactive ref
+    searchQuery.value = target.value; 
     getPodcasts();
   }
 

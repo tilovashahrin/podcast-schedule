@@ -39,6 +39,15 @@ body {
   color: #555;
 }
 
+.search-bar:focus-visible {
+  outline: 3px solid #ffcc00;
+}
+
+.podcast-card:focus-visible {
+  border: 3px solid #007BFF;
+  outline: none;
+}
+
 .search-bar {
   width: 80%;
   padding: 10px;
