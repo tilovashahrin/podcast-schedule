@@ -36,6 +36,7 @@ export function PodcastCards() {
     }
   }
 
+  //fetches podcasts based on search query
   async function getPodcasts() {
     if (!searchQuery.value) {
       podcasts.value = [];
@@ -61,6 +62,7 @@ export function PodcastCards() {
     }
   }
 
+  //fetches episodes for a selected podcast
   async function getEpisodes(podcastId: string) {
     if (!accessToken.value) {
       await getAuthToken();
@@ -71,6 +73,12 @@ export function PodcastCards() {
         headers: { Authorization: `Bearer ${accessToken.value}` },
         params: { limit: 20 },
       });
+
+      if (!response.data || !response.data.items) {
+        console.warn("unexpected api response format:", response.data);
+        return;
+      }
+      
       const episodes = response.data.items.map((episode: any) => ({
         id: podcastId,
         date: episode.release_date,
@@ -83,10 +91,9 @@ export function PodcastCards() {
     } catch (error) {
       console.error(error);
     }
-
   }
 
-  //generates 5 colors for 5 podcasts selected
+  //assigns a color to each podcast (max 5 colors)
   function assignColor(id: string) {
     if (lastAssignedIndex >= 5) lastAssignedIndex = 0;
     if (!colorMap.value[id]) {
@@ -96,15 +103,15 @@ export function PodcastCards() {
     }
   }
 
-  //when a podcast is selected
+  //selects or deselects a podcast
   function toggleSelection(id: string) {
     const podcast = podcasts.value.find((p) => p.id === id);
     if (!podcast) return;
     
-    //checks if its already selected in the existing selectedPodcasts array
+    //checks if podcast is already selected
     const isSelected = selectedPodcasts.value.some(p => p.id === id);
     if (isSelected) {
-      //removes from list of selectedPodcasts & episodeSchedules (deselects)
+      //removes from selected list & episodes list
       selectedPodcasts.value = selectedPodcasts.value.filter(p => p.id !== id);
       episodeSchedules.value = episodeSchedules.value.filter(schedule => schedule.id !== id);
     } else {
@@ -119,8 +126,7 @@ export function PodcastCards() {
     }
   }
 
-  //creating a podcast episode event
-  //calendarEvents (computed property) updates reactively when episodeSchedules changes
+  //creates podcast episode events for the calendar
   function createCalendarEvent() {
     return episodeSchedules.value.map((schedule) => {
       const podcastDetails = selectedPodcasts.value.find((p) => p.id === schedule.id);
@@ -136,11 +142,9 @@ export function PodcastCards() {
     });
   }
 
-  //This function takes an Event as a parameter (which occurs when a user types in an input field)
-  function updateSearch(event: Event) { //Event doesn't specify
-    // Typecasting: Treats event.target as an input element
+  //updates search query when user types
+  function updateSearch(event: Event) {
     const target = event.target as HTMLInputElement; 
-    // Assigns the input value to a reactive ref
     searchQuery.value = target.value; 
     getPodcasts();
   }

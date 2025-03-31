@@ -6,6 +6,7 @@ export function useCalendar(events: any) {
   const modalVisible = ref(false);
   const selectedEvent = ref<{ title: string; description: string }>({ title: '', description: '' });
 
+  //creating calendar
   const calendarOptions = ref({
     plugins: [dayGridPlugin, timeGridPlugin],
     initialView: "dayGridMonth",
@@ -24,8 +25,10 @@ export function useCalendar(events: any) {
     allDaySlot: false,
   });
 
+  //opening modal when event is clicked
   function handleEventClick(info: any) {
-    selectedEvent.value = { title: info.event.title, description: info.event.extendedProps.description };
+    const description = info.event.extendedProps?.description || "No description available.";
+    selectedEvent.value = { title: info.event.title, description };
     modalVisible.value = true;
   }
 
