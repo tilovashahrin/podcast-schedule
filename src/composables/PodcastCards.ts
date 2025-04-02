@@ -12,7 +12,7 @@ export function PodcastCards() {
   const podcasts = ref<Podcast[]>([]);
   const accessToken = ref("");
   const colorMap = ref<{ [key: string]: string }>({});
-  const selectedPodcasts = ref<{ id: string; name: string }[]>([]);
+  const selectedPodcasts = ref<Podcast[]>([]);
   const episodeSchedules = ref<{ id: string; date: string; title: string, description: string }[]>([]);
   let lastAssignedIndex = 0;
 
@@ -53,7 +53,11 @@ export function PodcastCards() {
       });
 
       if (response.data?.shows?.items) {
-        podcasts.value = response.data.shows.items;
+        const newPodcasts = response.data.shows.items;
+        podcasts.value = newPodcasts.map((p: Podcast) => {
+          const selected = selectedPodcasts.value.find(sp => sp.id === p.id);
+          return selected ? selected : p; 
+        });
       } else {
         console.warn("Unexpected response format:", response.data);
       }
@@ -105,7 +109,7 @@ export function PodcastCards() {
 
   //selects or deselects a podcast
   function toggleSelection(id: string) {
-    const podcast = podcasts.value.find((p) => p.id === id);
+    const podcast = podcasts.value.find((p) => p.id === id || selectedPodcasts.value.find((p) => p.id === id));
     if (!podcast) return;
     
     //checks if podcast is already selected
