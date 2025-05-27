@@ -114,12 +114,40 @@ body {
 
 
 /* Right Panel */
-.right-panel {
+.right-panel-container {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding: 20px;
   background-color: #fff;
   min-width: 500px;
   overflow-x: auto;
+}
+
+.right-panel {
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+/* export button */
+.export-button {
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 200px;
+  align-items: left;
+  
+  background-color: #00466c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 /* Modal  */

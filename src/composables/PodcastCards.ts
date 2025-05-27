@@ -56,7 +56,7 @@ export function PodcastCards() {
         const newPodcasts = response.data.shows.items;
         podcasts.value = newPodcasts.map((p: Podcast) => {
           const selected = selectedPodcasts.value.find(sp => sp.id === p.id);
-          return selected ? selected : p; 
+          return selected ? selected : p;
         });
       } else {
         console.warn("Unexpected response format:", response.data);
@@ -82,7 +82,7 @@ export function PodcastCards() {
         console.warn("unexpected api response format:", response.data);
         return;
       }
-      
+
       const episodes = response.data.items.map((episode: any) => ({
         id: podcastId,
         date: episode.release_date,
@@ -111,7 +111,7 @@ export function PodcastCards() {
   function toggleSelection(id: string) {
     const podcast = podcasts.value.find((p) => p.id === id || selectedPodcasts.value.find((p) => p.id === id));
     if (!podcast) return;
-    
+
     //checks if podcast is already selected
     const isSelected = selectedPodcasts.value.some(p => p.id === id);
     if (isSelected) {
@@ -123,7 +123,7 @@ export function PodcastCards() {
         alert("You can only select up to 5 podcasts.");
         return;
       }
-  
+
       selectedPodcasts.value.push(podcast);
       assignColor(id);
       getEpisodes(id);
@@ -148,9 +148,56 @@ export function PodcastCards() {
 
   //updates search query when user types
   function updateSearch(event: Event) {
-    const target = event.target as HTMLInputElement; 
-    searchQuery.value = target.value; 
+    const target = event.target as HTMLInputElement;
+    searchQuery.value = target.value;
     getPodcasts();
+  }
+
+  //Allow calendar ics downloads
+  function generateICSFile() {
+    // Get events from your calendar
+    const events = createCalendarEvent();
+
+    let icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//PodcastCalendar//EN',
+      'CALSCALE:GREGORIAN',
+    ];
+
+    // Add each event to the ICS file
+    events.forEach((event) => {
+      const startDate = event.start.toISOString().replace(/-|:|\.\d+/g, '');
+      const endDate = event.end.toISOString().replace(/-|:|\.\d+/g, '');
+
+      icsContent.push(
+        'BEGIN:VEVENT',
+        `DTSTART:${startDate}`,
+        `DTEND:${endDate}`,
+        `SUMMARY:${event.title}`,
+        `DESCRIPTION:${event.description}`,
+        `UID:${Math.random().toString(36).substring(2)}`, // Unique ID for each event
+        'END:VEVENT'
+      );
+    });
+
+    icsContent.push('END:VCALENDAR');
+
+    return icsContent.join('\n');
+  }
+
+  function downloadICSFile() {
+    const icsContent = generateICSFile();
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'podcast_schedule.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   return {
@@ -161,5 +208,6 @@ export function PodcastCards() {
     createCalendarEvent,
     toggleSelection,
     updateSearch,
+    downloadICSFile,
   };
 }
